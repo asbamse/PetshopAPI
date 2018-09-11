@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bamz.Petshop.Core.DomainService\Bamz.Petshop.Core.DomainService.csproj" />
+    <ProjectReference Include="..\Bamz.Petshop.Core.Entity\Bamz.Petshop.Core.Entity.csproj" />
+  </ItemGroup>
+
+</Project>
