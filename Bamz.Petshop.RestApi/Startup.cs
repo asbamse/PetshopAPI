@@ -60,7 +60,7 @@ namespace Bamz.Petshop.RestApi
             {
                 // SQL Server on Azure:
                 services.AddDbContext<PetshopContext>(opt =>
-                         opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Bamz.Petshop.RestApi")));
+                         opt.UseSqlServer(Configuration.GetConnectionString("defaultConnection"), b => b.MigrationsAssembly("Bamz.Petshop.RestApi")));
             }
 
             // Add JWT based authentication
