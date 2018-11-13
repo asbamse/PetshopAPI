@@ -90,6 +90,10 @@ namespace Bamz.Petshop.RestApi
             {
                 DBInit.Initialize(dbContext);
             }
+            else
+            {
+                dbContext.Database.EnsureCreated();
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
