@@ -4,28 +4,30 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bamz.Petshop.Core.ApplicationService;
 using Bamz.Petshop.Core.Entity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bamz.Petshop.RestApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PetTypeController : ControllerBase
+    public class AddressesController : ControllerBase
     {
-        private readonly IPetTypeService _petTypeService;
+        private readonly IAddressService _addressService;
 
-        public PetTypeController(IPetTypeService petTypeService)
+        public AddressesController(IAddressService addressService)
         {
-            _petTypeService = petTypeService;
+            _addressService = addressService;
         }
 
-        // GET api/petType
+        // GET api/address
+        [Authorize]
         [HttpGet]
-        public ActionResult<IEnumerable<PetType>> Get()
+        public ActionResult<IEnumerable<Address>> Get()
         {
             try
             {
-                return _petTypeService.GetAll();
+                return _addressService.GetAll();
             }
             catch (Exception e)
             {
@@ -33,13 +35,14 @@ namespace Bamz.Petshop.RestApi.Controllers
             }
         }
 
-        // GET api/petType/5
+        // GET api/address/5
+        [Authorize]
         [HttpGet("{id}")]
-        public ActionResult<PetType> Get(int id)
+        public ActionResult<Address> Get(int id)
         {
             try
             {
-                return _petTypeService.GetById(id);
+                return _addressService.GetById(id);
             }
             catch (Exception e)
             {
@@ -47,13 +50,14 @@ namespace Bamz.Petshop.RestApi.Controllers
             }
         }
 
-        // POST api/petType
+        // POST api/address
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
-        public ActionResult<PetType> Post([FromBody] PetType value)
+        public ActionResult<Address> Post([FromBody] Address value)
         {
             try
             {
-                return _petTypeService.Add(value.Type);
+                return _addressService.Add(value);
             }
             catch (Exception e)
             {
@@ -61,13 +65,14 @@ namespace Bamz.Petshop.RestApi.Controllers
             }
         }
 
-        // PUT api/petType/5
+        // PUT api/address/5
+        [Authorize(Roles = "Administrator")]
         [HttpPut("{id}")]
-        public ActionResult<PetType> Put(int id, [FromBody] PetType value)
+        public ActionResult<Address> Put(int id, [FromBody] Address value)
         {
             try
             {
-                return _petTypeService.Update(id, value.Type);
+                return _addressService.Update(id, value);
             }
             catch (Exception e)
             {
@@ -75,13 +80,14 @@ namespace Bamz.Petshop.RestApi.Controllers
             }
         }
 
-        // DELETE api/petType/5
+        // DELETE api/address/5
+        [Authorize(Roles = "Administrator")]
         [HttpDelete("{id}")]
-        public ActionResult<PetType> Delete(int id)
+        public ActionResult<Address> Delete(int id)
         {
             try
             {
-                return _petTypeService.Delete(id);
+                return _addressService.Delete(id);
             }
             catch (Exception e)
             {

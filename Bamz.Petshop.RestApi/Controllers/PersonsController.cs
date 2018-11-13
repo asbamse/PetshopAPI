@@ -4,28 +4,31 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bamz.Petshop.Core.ApplicationService;
 using Bamz.Petshop.Core.Entity;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bamz.Petshop.RestApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrderController : ControllerBase
+    public class PersonsController : ControllerBase
     {
-        private readonly IOrderService _orderService;
+        private readonly IPersonService _personService;
 
-        public OrderController(IOrderService orderService)
+        public PersonsController(IPersonService personService)
         {
-            _orderService = orderService;
+            _personService = personService;
         }
 
-        // GET api/order
+        // GET: api/person
+        [Authorize]
         [HttpGet]
-        public ActionResult<IEnumerable<Order>> Get()
+        public ActionResult<IEnumerable<Person>> Get()
         {
             try
             {
-                return _orderService.GetAll();
+                return _personService.GetAll();
             }
             catch (Exception e)
             {
@@ -33,13 +36,14 @@ namespace Bamz.Petshop.RestApi.Controllers
             }
         }
 
-        // GET api/order/5
-        [HttpGet("{id}")]
-        public ActionResult<Order> Get(int id)
+        // GET: api/person/5
+        [Authorize]
+        [HttpGet("{id}", Name = "Get")]
+        public ActionResult<Person> Get(int id)
         {
             try
             {
-                return _orderService.GetById(id);
+                return _personService.GetById(id);
             }
             catch (Exception e)
             {
@@ -47,13 +51,14 @@ namespace Bamz.Petshop.RestApi.Controllers
             }
         }
 
-        // POST api/order
+        // POST: api/person
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
-        public ActionResult<Order> Post([FromBody] Order value)
+        public ActionResult<Person> Post([FromBody] PersonInput value)
         {
             try
             {
-                return _orderService.Add(value.Customer, value.Pets, value.OrderDate, value.Price);
+                return _personService.Add(value);
             }
             catch (Exception e)
             {
@@ -61,13 +66,14 @@ namespace Bamz.Petshop.RestApi.Controllers
             }
         }
 
-        // PUT api/order/5
+        // PUT: api/person/5
+        [Authorize(Roles = "Administrator")]
         [HttpPut("{id}")]
-        public ActionResult<Order> Put(int id, [FromBody] Order value)
+        public ActionResult<Person> Put(int id, [FromBody] PersonInput value)
         {
             try
             {
-                return _orderService.Update(id, value.Customer, value.Pets, value.OrderDate, value.Price);
+                return _personService.Update(id, value);
             }
             catch (Exception e)
             {
@@ -75,13 +81,14 @@ namespace Bamz.Petshop.RestApi.Controllers
             }
         }
 
-        // DELETE api/order/5
+        // DELETE: api/person/5
+        [Authorize(Roles = "Administrator")]
         [HttpDelete("{id}")]
-        public ActionResult<Order> Delete(int id)
+        public ActionResult<Person> Delete(int id)
         {
             try
             {
-                return _orderService.Delete(id);
+                return _personService.Delete(id);
             }
             catch (Exception e)
             {

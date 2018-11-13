@@ -4,28 +4,30 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bamz.Petshop.Core.ApplicationService;
 using Bamz.Petshop.Core.Entity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bamz.Petshop.RestApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ColourController : ControllerBase
+    public class PetTypesController : ControllerBase
     {
-        private readonly IColourService _colourService;
+        private readonly IPetTypeService _petTypeService;
 
-        public ColourController(IColourService colourService)
+        public PetTypesController(IPetTypeService petTypeService)
         {
-            _colourService = colourService;
+            _petTypeService = petTypeService;
         }
 
-        // GET api/colour
+        // GET api/petType
+        [Authorize]
         [HttpGet]
-        public ActionResult<IEnumerable<Colour>> Get()
+        public ActionResult<IEnumerable<PetType>> Get()
         {
             try
             {
-                return _colourService.GetAll();
+                return _petTypeService.GetAll();
             }
             catch (Exception e)
             {
@@ -33,13 +35,14 @@ namespace Bamz.Petshop.RestApi.Controllers
             }
         }
 
-        // GET api/colour/5
+        // GET api/petType/5
+        [Authorize]
         [HttpGet("{id}")]
-        public ActionResult<Colour> Get(int id)
+        public ActionResult<PetType> Get(int id)
         {
             try
             {
-                return _colourService.GetById(id);
+                return _petTypeService.GetById(id);
             }
             catch (Exception e)
             {
@@ -47,13 +50,14 @@ namespace Bamz.Petshop.RestApi.Controllers
             }
         }
 
-        // POST api/colour
+        // POST api/petType
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
-        public ActionResult<Colour> Post([FromBody] Colour value)
+        public ActionResult<PetType> Post([FromBody] PetType value)
         {
             try
             {
-                return _colourService.Add(value.Description);
+                return _petTypeService.Add(value);
             }
             catch (Exception e)
             {
@@ -61,13 +65,14 @@ namespace Bamz.Petshop.RestApi.Controllers
             }
         }
 
-        // PUT api/colour/5
+        // PUT api/petType/5
+        [Authorize(Roles = "Administrator")]
         [HttpPut("{id}")]
-        public ActionResult<Colour> Put(int id, [FromBody] Colour value)
+        public ActionResult<PetType> Put(int id, [FromBody] PetType value)
         {
             try
             {
-                return _colourService.Update(id, value.Description);
+                return _petTypeService.Update(id, value);
             }
             catch (Exception e)
             {
@@ -75,13 +80,14 @@ namespace Bamz.Petshop.RestApi.Controllers
             }
         }
 
-        // DELETE api/colour/5
+        // DELETE api/petType/5
+        [Authorize(Roles = "Administrator")]
         [HttpDelete("{id}")]
-        public ActionResult<Colour> Delete(int id)
+        public ActionResult<PetType> Delete(int id)
         {
             try
             {
-                return _colourService.Delete(id);
+                return _petTypeService.Delete(id);
             }
             catch (Exception e)
             {
