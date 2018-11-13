@@ -33,7 +33,16 @@ namespace Bamz.Petshop.Infrastructure.Data
             Person person;
             try
             {
-                person = new Person(_nextId, firstName, lastName, _arep.GetById(address.Id), phone, email);
+                person = new Person
+                {
+                    Id = _nextId,
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Address = _arep.GetById(address.Id),
+                    Phone = phone,
+                    Email = email
+                };
+
                 _persons.Add(person);
                 _nextId++;
             }
@@ -67,7 +76,16 @@ namespace Bamz.Petshop.Infrastructure.Data
             {
                 if (_persons[i].Id == index)
                 {
-                    person = new Person(index, firstName, lastName, _arep.GetById(address.Id), phone, email);
+                    person = new Person
+                    {
+                        Id = _nextId,
+                        FirstName = firstName,
+                        LastName = lastName,
+                        Address = _arep.GetById(address.Id),
+                        Phone = phone,
+                        Email = email
+                    };
+
                     _persons[i] = person;
                     return person;
                 }

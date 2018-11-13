@@ -40,7 +40,16 @@ namespace Bamz.Petshop.Infrastructure.Data
             Person person;
             try
             {
-                person = new Person(_nextId, firstName, lastName, _arep.GetById(address.Id), phone, email);
+                person = new Person
+                {
+                    Id = _nextId,
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Address = _arep.GetById(address.Id),
+                    Phone = phone,
+                    Email = email
+                };
+
                 _persons.Add(person);
                 _nextId++;
             }
@@ -74,7 +83,16 @@ namespace Bamz.Petshop.Infrastructure.Data
             {
                 if (_persons[i].Id == index)
                 {
-                    person = new Person(index, firstName, lastName, _arep.GetById(address.Id), phone, email);
+                    person = new Person
+                    {
+                        Id = _nextId,
+                        FirstName = firstName,
+                        LastName = lastName,
+                        Address = _arep.GetById(address.Id),
+                        Phone = phone,
+                        Email = email
+                    };
+
                     _persons[i] = person;
                     return person;
                 }
@@ -117,7 +135,7 @@ namespace Bamz.Petshop.Infrastructure.Data
             using (StreamWriter file = File.CreateText(@_path))
             {
                 JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(file, new CurrentIndexAndPersons(_nextId, _persons));
+                serializer.Serialize(file, new CurrentIndexAndPersons { NextId = _nextId, Persons = _persons });
             }
         }
 

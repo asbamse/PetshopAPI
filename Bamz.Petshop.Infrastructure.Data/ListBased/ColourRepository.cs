@@ -29,7 +29,12 @@ namespace Bamz.Petshop.Infrastructure.Data
             Colour colour;
             try
             {
-                colour = new Colour(_nextId, description);
+                colour = new Colour
+                {
+                    Id = _nextId,
+                    Description = description
+                };
+
                 _colours.Add(colour);
                 _nextId++;
             }
@@ -63,7 +68,12 @@ namespace Bamz.Petshop.Infrastructure.Data
             {
                 if(_colours[i].Id == index)
                 {
-                    colour = new Colour(index, description);
+                    colour = new Colour
+                    {
+                        Id = _nextId,
+                        Description = description
+                    };
+
                     _colours[i] = colour;
                     return colour;
                 }

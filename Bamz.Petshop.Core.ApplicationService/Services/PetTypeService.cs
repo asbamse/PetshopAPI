@@ -9,18 +9,18 @@ namespace Bamz.Petshop.Core.ApplicationService.Services
 {
     public class PetTypeService : IPetTypeService
     {
-        private readonly IPetTypeRepository _ptrep;
+        private readonly IRepository<PetType> _ptrep;
 
-        public PetTypeService(IPetTypeRepository petTypeRepository)
+        public PetTypeService(IRepository<PetType> petTypeRepository)
         {
             _ptrep = petTypeRepository;
         }
 
-        public PetType Add(string type)
+        public PetType Add(PetType petType)
         {
             try
             {
-                return _ptrep.Add(type);
+                return _ptrep.Add(petType);
             }
             catch (Exception e)
             {
@@ -64,11 +64,11 @@ namespace Bamz.Petshop.Core.ApplicationService.Services
             }
         }
 
-        public PetType Update(int index, string type)
+        public PetType Update(int index, PetType petType)
         {
             try
             {
-                return _ptrep.Update(index, type);
+                return _ptrep.Update(index, petType);
             }
             catch (Exception e)
             {

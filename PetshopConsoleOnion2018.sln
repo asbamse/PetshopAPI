@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bamz.Petshop", "Bamz.Petshop\Bamz.Petshop.csproj", "{2ABEB9BA-0851-43E4-9C41-1D61FBE0C208}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{7442ED33-4D01-4B66-A71B-42E13FD9D3A2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{DB3B503A-52E1-478A-88BC-5A8D47BF66C3}"
@@ -13,15 +11,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{4FD2182C-9
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bamz.Petshop.Infrastructure.Data", "Bamz.Petshop.Infrastructure.Data\Bamz.Petshop.Infrastructure.Data.csproj", "{E8C4EE5A-8609-41DE-9091-A3A4D71D48D1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bamz.Petshop.UserInterface", "Bamz.Petshop.UserInterface\Bamz.Petshop.UserInterface.csproj", "{24973B43-6E69-4C43-B71E-7B33CAEC73C4}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bamz.Petshop.Core.Entity", "Bamz.Petshop.Core.Entity\Bamz.Petshop.Core.Entity.csproj", "{190A84D3-5757-48B9-B757-576B2FD2232B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bamz.Petshop.Core.DomainService", "Bamz.Petshop.Core.DomainService\Bamz.Petshop.Core.DomainService.csproj", "{757578D6-1155-4676-89F2-D42EEADD78F3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bamz.Petshop.Core.ApplicationService", "Bamz.Petshop.Core.ApplicationService\Bamz.Petshop.Core.ApplicationService.csproj", "{4DCD06B5-FC6A-4EEB-8E45-3B501D5B9C97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bamz.Petshop.RestApi", "Bamz.Petshop.RestApi\Bamz.Petshop.RestApi.csproj", "{4656AD01-CFF6-4C2B-8783-4512834CDC6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bamz.Petshop.RestApi", "Bamz.Petshop.RestApi\Bamz.Petshop.RestApi.csproj", "{4656AD01-CFF6-4C2B-8783-4512834CDC6F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bamz.Petshop.Core.Utilities", "Bamz.Petshop.Core.Utilities\Bamz.Petshop.Core.Utilities.csproj", "{2637667F-A03E-4ED6-995F-AD4729810100}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,18 +27,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2ABEB9BA-0851-43E4-9C41-1D61FBE0C208}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2ABEB9BA-0851-43E4-9C41-1D61FBE0C208}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2ABEB9BA-0851-43E4-9C41-1D61FBE0C208}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2ABEB9BA-0851-43E4-9C41-1D61FBE0C208}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E8C4EE5A-8609-41DE-9091-A3A4D71D48D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E8C4EE5A-8609-41DE-9091-A3A4D71D48D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8C4EE5A-8609-41DE-9091-A3A4D71D48D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8C4EE5A-8609-41DE-9091-A3A4D71D48D1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{24973B43-6E69-4C43-B71E-7B33CAEC73C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{24973B43-6E69-4C43-B71E-7B33CAEC73C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{24973B43-6E69-4C43-B71E-7B33CAEC73C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{24973B43-6E69-4C43-B71E-7B33CAEC73C4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{190A84D3-5757-48B9-B757-576B2FD2232B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{190A84D3-5757-48B9-B757-576B2FD2232B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{190A84D3-5757-48B9-B757-576B2FD2232B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -57,17 +47,21 @@ Global
 		{4656AD01-CFF6-4C2B-8783-4512834CDC6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4656AD01-CFF6-4C2B-8783-4512834CDC6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4656AD01-CFF6-4C2B-8783-4512834CDC6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2637667F-A03E-4ED6-995F-AD4729810100}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2637667F-A03E-4ED6-995F-AD4729810100}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2637667F-A03E-4ED6-995F-AD4729810100}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2637667F-A03E-4ED6-995F-AD4729810100}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E8C4EE5A-8609-41DE-9091-A3A4D71D48D1} = {DB3B503A-52E1-478A-88BC-5A8D47BF66C3}
-		{24973B43-6E69-4C43-B71E-7B33CAEC73C4} = {7442ED33-4D01-4B66-A71B-42E13FD9D3A2}
 		{190A84D3-5757-48B9-B757-576B2FD2232B} = {4FD2182C-9191-40C0-A48E-0FBF92CBF320}
 		{757578D6-1155-4676-89F2-D42EEADD78F3} = {4FD2182C-9191-40C0-A48E-0FBF92CBF320}
 		{4DCD06B5-FC6A-4EEB-8E45-3B501D5B9C97} = {4FD2182C-9191-40C0-A48E-0FBF92CBF320}
 		{4656AD01-CFF6-4C2B-8783-4512834CDC6F} = {7442ED33-4D01-4B66-A71B-42E13FD9D3A2}
+		{2637667F-A03E-4ED6-995F-AD4729810100} = {4FD2182C-9191-40C0-A48E-0FBF92CBF320}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {789D6F00-25BD-473E-899F-21D61CBF1FA1}

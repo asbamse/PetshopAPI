@@ -6,25 +6,13 @@ namespace Bamz.Petshop.Core.Entity
 {
     public class Address
     {
-        public int Id { get; }
-        public string Street { get; }
-        public int Number { get; }
-        public string Letter { get; }
-        public int Floor { get; }
-        public string Side { get; }
-        public int ZipCode { get; }
-        public string City { get; }
-
-        public Address(int id, string street, int number, string letter, int floor, string side, int zipCode, string city)
-        {
-            Id = id;
-            Street = street;
-            Number = number;
-            Letter = letter;
-            Floor = floor;
-            Side = side;
-            ZipCode = zipCode;
-            City = city;
-        }
+        public int Id { get; set; }
+        public string Street { get; set; }
+        public int Number { get; set; }
+        public string Letter { get; set; }
+        public int? Floor { get; set; }
+        public string Side { get; set; }
+        public int ZipCode { get; set; }
+        public string City { get; set; }
     }
 }

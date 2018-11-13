@@ -10,9 +10,8 @@ namespace Bamz.Petshop.Core.ApplicationService
         /// <summary>
         /// Adds colour to repository.
         /// </summary>
-        /// <param name="description">Description of colour.</param>
         /// <returns></returns>
-        Colour Add(String description);
+        Colour Add(Colour colour);
 
         /// <summary>
         /// Gets all colours.
@@ -30,10 +29,8 @@ namespace Bamz.Petshop.Core.ApplicationService
         /// <summary>
         /// Updates Colour already in repository.
         /// </summary>
-        /// <param name="index">Index wanted editing.</param>
-        /// <param name="description">Description of colour.</param>
         /// <returns></returns>
-        Colour Update(int index, String description);
+        Colour Update(int index, Colour colour);
 
         /// <summary>
         /// Deletes colour in repository.

@@ -1,6 +1,7 @@
 ﻿using Bamz.Petshop.Core.ApplicationService;
 using Bamz.Petshop.Core.ApplicationService.Services;
 using Bamz.Petshop.Core.DomainService;
+using Bamz.Petshop.Core.Entity;
 using Bamz.Petshop.Infrastructure.Data;
 using Bamz.Petshop.UserInterface;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,10 +22,10 @@ namespace Bamz.Petshop
             sc.AddScoped<IPersonService, PersonService>();
             sc.AddScoped<IPetService, PetService>();
             sc.AddScoped<IPetTypeService, PetTypeService>();
-            sc.AddScoped<IColourRepository, ColourRepository>();
-            sc.AddScoped<IPersonRepository, PersonRepository>();
-            sc.AddScoped<IPetRepository, PetRepository>();
-            sc.AddScoped<IPetTypeRepository, PetTypeRepository>();
+            sc.AddScoped<IColourRepository, ColourDBRepository>();
+            sc.AddScoped<IPersonRepository, PersonDBRepository>();
+            sc.AddScoped<IPetRepository, PetDBRepository>();
+            sc.AddScoped<IPetTypeRepository, PetTypeDBRepository>();
             sc.AddScoped<IUserInterface, ConsoleUI>();
 
             // Build Service.
@@ -55,12 +56,12 @@ namespace Bamz.Petshop
             var r2Owner = pss.Add("Wonda Bonda", "Sonda", veggie, 432589, "wbs@onda.co.uk");
 
             IPetService ps = sp.GetRequiredService<IPetService>();
-            ps.Add("Mortis", new DateTime(), DateTime.Now, mortisCol, mortisType, mortisOwner, 12000000.0);
-            ps.Add("Jaga", new DateTime(), DateTime.Now, grey, dog, r1Owner, 10.0);
-            ps.Add("Macauley", new DateTime(), DateTime.Now, black, cat, r1Owner, 1300.0);
-            ps.Add("Leray", new DateTime(), DateTime.Now, grey, cat, r1Owner, 533);
-            ps.Add("Guy", new DateTime(), DateTime.Now, white, dog, r2Owner, 153.53);
-            ps.Add("Fabia", new DateTime(), DateTime.Now, white, goat, r2Owner, 99333);
+            ps.Add(new Pet { Name = "Mortis", BirthDate = new DateTime(), SoldDate = new DateTime(), Colour = mortisCol, Type = mortisType, PreviousOwner = mortisOwner, Price = 12000000.0 });
+            ps.Add(new Pet { Name = "Jaga", BirthDate = new DateTime(), SoldDate = new DateTime(), Colour = grey, Type = dog, PreviousOwner = r1Owner, Price = 10.0 });
+            ps.Add(new Pet { Name = "Macauley", BirthDate = new DateTime(), SoldDate = new DateTime(), Colour = black, Type = cat, PreviousOwner = r1Owner, Price = 1300.0 });
+            ps.Add(new Pet { Name = "Leray", BirthDate = new DateTime(), SoldDate = new DateTime(), Colour = grey, Type = cat, PreviousOwner = r1Owner, Price = 533 });
+            ps.Add(new Pet { Name = "Guy", BirthDate = new DateTime(), SoldDate = new DateTime(), Colour = white, Type = dog, PreviousOwner = r2Owner, Price = 153.53 });
+            ps.Add(new Pet { Name = "Fabia", BirthDate = new DateTime(), SoldDate = new DateTime(), Colour = white, Type = goat, PreviousOwner = r2Owner, Price = 99333 });
 
             #endregion
 

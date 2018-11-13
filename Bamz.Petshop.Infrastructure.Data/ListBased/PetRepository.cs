@@ -32,12 +32,10 @@ namespace Bamz.Petshop.Infrastructure.Data
             }
         }
 
-        public Pet Add(string name, DateTime birthDate, DateTime soldDate, Colour colour, PetType type, Person previousOwner, double price)
+        public Pet Add(Pet pet)
         {
-            Pet pet;
             try
             {
-                pet = new Pet(_nextId, name, birthDate, soldDate, _crep.GetById(colour.Id), _ptrep.GetById(type.Id), _prep.GetById(previousOwner.Id), price);
                 _pets.Add(pet);
                 _nextId++;
             }
@@ -61,6 +59,18 @@ namespace Bamz.Petshop.Infrastructure.Data
             return _pets;
         }
 
+        public IEnumerable<Pet> GetPage(PageProperty pageProperty)
+        {
+            //Updates data.
+            for (int i = 0; i < _pets.Count; i++)
+            {
+                _pets[i].Colour = _crep.GetById(_pets[i].Colour.Id);
+                _pets[i].Type = _ptrep.GetById(_pets[i].Type.Id);
+                _pets[i].PreviousOwner = _prep.GetById(_pets[i].PreviousOwner.Id);
+            }
+            return _pets.Skip((pageProperty.Page - 1) * pageProperty.Limit).Take(pageProperty.Limit);
+        }
+
         public Pet GetById(int id)
         {
             List<Pet> result = _pets.Where(pet => pet.Id == id).ToList();
@@ -75,16 +85,27 @@ namespace Bamz.Petshop.Infrastructure.Data
             throw new RepositoryException("Pet not found!");
         }
 
-        public Pet Update(int index, string name, DateTime birthDate, DateTime soldDate, Colour colour, PetType type, Person previousOwner, double price)
+        public Pet Update(Pet pet)
         {
-            Pet pet;
+            Pet tmp;
             for (int i = 0; i < _pets.Count; i++)
             {
-                if (_pets[i].Id == index)
+                if (_pets[i].Id == pet.Id)
                 {
-                    pet = new Pet(index, name, birthDate, soldDate, _crep.GetById(colour.Id), _ptrep.GetById(type.Id), _prep.GetById(previousOwner.Id), price);
-                    _pets[i] = pet;
-                    return pet;
+                    tmp = new Pet
+                    {
+                        Id = _nextId,
+                        Name = pet.Name,
+                        BirthDate = pet.BirthDate,
+                        SoldDate = pet.SoldDate,
+                        Colour = _crep.GetById(pet.Colour.Id),
+                        Type = _ptrep.GetById(pet.Type.Id),
+                        PreviousOwner = _prep.GetById(pet.PreviousOwner.Id),
+                        Price = pet.Price
+                    };
+
+                    _pets[i] = tmp;
+                    return tmp;
                 }
             }
 
@@ -104,6 +125,11 @@ namespace Bamz.Petshop.Infrastructure.Data
             }
 
             throw new RepositoryException("Error deleting pet");
+        }
+
+        public int Count()
+        {
+            return _pets.Count;
         }
     }
 }

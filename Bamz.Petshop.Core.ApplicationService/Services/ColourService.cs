@@ -9,18 +9,18 @@ namespace Bamz.Petshop.Core.ApplicationService.Services
 {
     public class ColourService : IColourService
     {
-        private readonly IColourRepository _crep;
+        private readonly IRepository<Colour> _crep;
 
-        public ColourService(IColourRepository colourService)
+        public ColourService(IRepository<Colour> colourService)
         {
             _crep = colourService;
         }
 
-        public Colour Add(string description)
+        public Colour Add(Colour colour)
         {
             try
             {
-                return _crep.Add(description);
+                return _crep.Add(colour);
             }
             catch (Exception e)
             {
@@ -64,11 +64,11 @@ namespace Bamz.Petshop.Core.ApplicationService.Services
             }
         }
 
-        public Colour Update(int index, string description)
+        public Colour Update(int index, Colour colour)
         {
             try
             {
-                return _crep.Update(index, description);
+                return _crep.Update(index, colour);
             }
             catch (Exception e)
             {

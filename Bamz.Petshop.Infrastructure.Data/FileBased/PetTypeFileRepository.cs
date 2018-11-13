@@ -36,7 +36,12 @@ namespace Bamz.Petshop.Infrastructure.Data
             PetType petType;
             try
             {
-                petType = new PetType(_nextId, type);
+                petType = new PetType
+                {
+                    Id = _nextId,
+                    Type = type
+                };
+
                 _petTypes.Add(petType);
                 _nextId++;
             }
@@ -71,7 +76,12 @@ namespace Bamz.Petshop.Infrastructure.Data
             {
                 if (_petTypes[i].Id == index)
                 {
-                    petType = new PetType(index, type);
+                    petType = new PetType
+                    {
+                        Id = _nextId,
+                        Type = type
+                    };
+
                     _petTypes[i] = petType;
                     ListUpdated();
                     return petType;
@@ -116,7 +126,7 @@ namespace Bamz.Petshop.Infrastructure.Data
             using (StreamWriter file = File.CreateText(@_path))
             {
                 JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(file, new CurrentIndexAndPetTypes(_nextId, _petTypes));
+                serializer.Serialize(file, new CurrentIndexAndPetTypes { NextId = _nextId, PetTypes = _petTypes });
             }
         }
 

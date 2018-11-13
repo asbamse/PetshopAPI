@@ -6,19 +6,10 @@ namespace Bamz.Petshop.Core.Entity
 {
     public class Order
     {
-        public int Id { get; }
+        public int Id { get; set; }
         public Person Customer { get; set; }
-        public List<Pet> Pets { get; set; }
-        public DateTime OrderDate { get; }
-        public double Price { get; }
-
-        public Order(int id, Person customer, List<Pet> pets, DateTime orderDate, double price)
-        {
-            Id = id;
-            Customer = customer;
-            Pets = pets;
-            OrderDate = orderDate;
-            Price = price;
-        }
+        public List<OrderPetRelation> Pets { get; set; }
+        public DateTime OrderDate { get; set; }
+        public double Price { get; set; }
     }
 }

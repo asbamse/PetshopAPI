@@ -9,26 +9,30 @@ namespace Bamz.Petshop.UserInterface
 {
     public class ConsoleUI : IUserInterface
     {
+        private readonly IAddressService _addServ;
         private readonly IColourService _colServ;
         private readonly IPersonService _psnServ;
         private readonly IPetService _petServ;
         private readonly IPetTypeService _ptServ;
 
         private readonly Menu main;
+        private readonly Menu addressMenu;
         private readonly Menu colourMenu;
         private readonly Menu personMenu;
         private readonly Menu petMenu;
         private readonly Menu petTypeMenu;
         private readonly Menu petReadMenu;
 
-        public ConsoleUI(IColourService colourService, IPersonService personService, IPetService petService, IPetTypeService petTypeService)
+        public ConsoleUI(IAddressService addressService, IColourService colourService, IPersonService personService, IPetService petService, IPetTypeService petTypeService)
         {
+            _addServ = addressService;
             _colServ = colourService;
             _psnServ = personService;
             _petServ = petService;
             _ptServ = petTypeService;
 
             main = new Menu("Main Menu");
+            addressMenu = new Menu("Address Menu", main);
             colourMenu = new Menu("Colour Menu", main);
             personMenu = new Menu("Person Menu", main);
             petMenu = new Menu("Pet Menu", main);
@@ -57,6 +61,89 @@ namespace Bamz.Petshop.UserInterface
                     {
                         Console.Clear();
                         colourMenu.Show();
+                    })
+                });
+            #endregion
+            
+            #region Address
+            addressMenu.SetMenu(
+                new MenuItem[] {
+                    new MenuItem("Create", () =>
+                    {
+                        string street = ConsoleUtils.ReadNotEmpty("Input street: ");
+                        int number = ConsoleUtils.ReadInt("Input number: ");
+                        string letter = ConsoleUtils.ReadNotEmpty("Input letter: ");
+                        int floor = ConsoleUtils.ReadInt("Input floor: ");
+                        string side = ConsoleUtils.ReadNotEmpty("Input side: ");
+                        int zipCode = ConsoleUtils.ReadInt("Input zipcode: ");
+                        string city = ConsoleUtils.ReadNotEmpty("Input city: ");
+
+                        try
+                        {
+                            Address address = _addServ.Add(street, number, letter, floor, side, zipCode, city);
+                            Console.WriteLine("Successfully added {0} {1} to the repository!", address.Street, address.Number);
+                        }
+                        catch(Exception e)
+                        {
+                            Console.WriteLine(e.Message);
+                        }
+                    }),
+                    new MenuItem("Read All", () =>
+                    {
+                        try
+                        {
+                            List<Address> addresses = _addServ.GetAll();
+                            if(addresses.Count > 0)
+                            {
+                                foreach (Address add in addresses)
+                                {
+                                    Console.WriteLine("ID: {0}, Street: {1}, Number: {2}, Leter: {3}, Floor: {4}, Side: {5}, ZipCode: {6}, City: {7}.", add.Id, add.Street, add.Number, add.Letter, add.Floor, add.Side, add.ZipCode, add.City);
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("There are no addresses stored.");
+                            }
+                        }
+                        catch(Exception e)
+                        {
+                            Console.WriteLine(e.Message);
+                        }
+                    }),
+                    new MenuItem("Update", () =>
+                    {
+                        int index = ConsoleUtils.ReadInt("Input id of address wanted changed: ");
+                        string street = ConsoleUtils.ReadNotEmpty("Input street: ");
+                        int number = ConsoleUtils.ReadInt("Input number: ");
+                        string letter = ConsoleUtils.ReadNotEmpty("Input letter: ");
+                        int floor = ConsoleUtils.ReadInt("Input floor: ");
+                        string side = ConsoleUtils.ReadNotEmpty("Input side: ");
+                        int zipCode = ConsoleUtils.ReadInt("Input zipcode: ");
+                        string city = ConsoleUtils.ReadNotEmpty("Input city: ");
+
+                        try
+                        {
+                            Address address = _addServ.Update(index, street, number, letter, floor, side, zipCode, city);
+                            Console.WriteLine("Successfully updated {0} {1} in the repository!", address.Street, address.Number);
+                        }
+                        catch(Exception e)
+                        {
+                            Console.WriteLine(e.Message);
+                        }
+                    }),
+                    new MenuItem("Delete", () =>
+                    {
+                        int index = ConsoleUtils.ReadInt("Input id of address wanted deleted: ");
+
+                        try
+                        {
+                            Address address = _addServ.Delete(index);
+                            Console.WriteLine("Successfully deleted {0} {1} from the repository!", address.Street, address.Number);
+                        }
+                        catch(Exception e)
+                        {
+                            Console.WriteLine(e.Message);
+                        }
                     })
                 });
             #endregion
@@ -139,7 +226,14 @@ namespace Bamz.Petshop.UserInterface
                     {
                         string firstName = ConsoleUtils.ReadNotEmpty("Input first name: ");
                         string lastName = ConsoleUtils.ReadNotEmpty("Input last name: ");
-                        string address = ConsoleUtils.ReadNotEmpty("Input address: ");
+
+                        Address address = ChooseAddress(personMenu);
+                        if(address==null)
+                        {
+                            Console.WriteLine("No addresses found! Create the address before creating the person.");
+                            return;
+                        }
+
                         int phone = ConsoleUtils.ReadInt("Input phone number: ");
                         string email = ConsoleUtils.ReadNotEmpty("Input email: ");
 
@@ -180,7 +274,14 @@ namespace Bamz.Petshop.UserInterface
                         int index = ConsoleUtils.ReadInt("Input id of person wanted changed: ");
                         string firstName = ConsoleUtils.ReadNotEmpty("Input first name: ");
                         string lastName = ConsoleUtils.ReadNotEmpty("Input last name: ");
-                        string address = ConsoleUtils.ReadNotEmpty("Input address: ");
+
+                        Address address = ChooseAddress(personMenu);
+                        if(address==null)
+                        {
+                            Console.WriteLine("No addresses found! Create the address before updating the person.");
+                            return;
+                        }
+
                         int phone = ConsoleUtils.ReadInt("Input phone number: ");
                         string email = ConsoleUtils.ReadNotEmpty("Input email: ");
 
@@ -245,7 +346,8 @@ namespace Bamz.Petshop.UserInterface
 
                         try
                         {
-                            Pet pet = _petServ.Add(name, birthDate, soldDate, colour, type, previousOwner, price);
+                            Pet tmp = new Pet{ Name=name, BirthDate=birthDate, SoldDate=soldDate, Colour=colour, Type=type, PreviousOwner=previousOwner, Price=price };
+                            Pet pet = _petServ.Add(tmp);
                             Console.WriteLine("Successfully added {0} to the repository!", pet.Name);
                         }
                         catch(Exception e)
@@ -290,7 +392,8 @@ namespace Bamz.Petshop.UserInterface
 
                         try
                         {
-                            Pet pet = _petServ.Update(index, name, birthDate, soldDate, colour, type, previousOwner, price);
+                            Pet tmp = new Pet{ Id=index, Name=name, BirthDate=birthDate, SoldDate=soldDate, Colour=colour, Type=type, PreviousOwner=previousOwner, Price=price };
+                            Pet pet = _petServ.Update(tmp);
                             Console.WriteLine("Successfully updated {0}'s to Name: {1}, Birth Date: {2}, Sold Date: {3}, Colour: {4}, Pet Type: {5}, Previous Owner: {6} {7}, Price {8}.", index, pet.Name, pet.BirthDate, pet.SoldDate, pet.Colour.Description, pet.Type.Type, pet.PreviousOwner.FirstName, pet.PreviousOwner.LastName, pet.Price);
                         }
                         catch(Exception e)
@@ -511,6 +614,33 @@ namespace Bamz.Petshop.UserInterface
         public void Show()
         {
             main.Show();
+        }
+
+        /// <summary>
+        /// Choose address, returns null if no address is found.
+        /// </summary>
+        /// <returns>Address</returns>
+        Address ChooseAddress(Menu parent)
+        {
+            Address address = null;
+            List<Address> addresses = _addServ.GetAll();
+            MenuItem[] addressItems = new MenuItem[addresses.Count];
+            Menu chooseAddress = new Menu("Choose address", parent, true);
+
+            for (int i = 0; i < addresses.Count; i++)
+            {
+                // Store i to secure constant.
+                int ci = i;
+                addressItems[ci] = new MenuItem(addresses[ci].Street + " " + addresses[ci].Number + addresses[ci].Letter + ", " + addresses[ci].Floor + "." + addresses[ci].Side + ", " + addresses[ci].ZipCode + ", " + addresses[ci].City, () => { address = addresses[ci]; chooseAddress.Exit(); });
+            }
+
+            if (addressItems.Length > 0)
+            {
+                chooseAddress.SetMenu(addressItems);
+                chooseAddress.Show();
+            }
+
+            return address;
         }
 
         /// <summary>

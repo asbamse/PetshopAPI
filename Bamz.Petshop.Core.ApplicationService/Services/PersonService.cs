@@ -16,11 +16,11 @@ namespace Bamz.Petshop.Core.ApplicationService.Services
             _prep = personRepository;
         }
 
-        public Person Add(string firstName, string lastName, Address address, int phone, string email)
+        public Person Add(PersonInput person)
         {
             try
             {
-                return _prep.Add(firstName, lastName, address, phone, email);
+                return _prep.Add(person);
             }
             catch (Exception e)
             {
@@ -64,11 +64,11 @@ namespace Bamz.Petshop.Core.ApplicationService.Services
             }
         }
 
-        public Person Update(int index, string firstName, string lastName, Address address, int phone, string email)
+        public Person Update(int index, PersonInput person)
         {
             try
             {
-                return _prep.Update(index, firstName, lastName, address, phone, email);
+                return _prep.Update(index, person);
             }
             catch (Exception e)
             {

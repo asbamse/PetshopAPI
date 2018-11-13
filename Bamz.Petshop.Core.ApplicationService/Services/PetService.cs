@@ -9,18 +9,18 @@ namespace Bamz.Petshop.Core.ApplicationService.Services
 {
     public class PetService : IPetService
     {
-        private readonly IPetRepository _prep;
+        private readonly IRepository<Pet> _prep;
 
-        public PetService(IPetRepository petRepository)
+        public PetService(IRepository<Pet> petRepository)
         {
             _prep = petRepository;
         }
 
-        public Pet Add(string name, DateTime birthDate, DateTime soldDate, Colour colour, PetType type, Person previousOwner, double price)
+        public Pet Add(Pet pet)
         {
             try
             {
-                return _prep.Add(name, birthDate, soldDate, colour, type, previousOwner, price);
+                return _prep.Add(pet);
             }
             catch (Exception e)
             {
@@ -45,6 +45,30 @@ namespace Bamz.Petshop.Core.ApplicationService.Services
             try
             {
                 return _prep.GetAll().ToList();
+            }
+            catch (Exception e)
+            {
+                throw new ServiceException("Error getting all pets: " + e.Message, e);
+            }
+        }
+
+        public List<Pet> GetPage(PageProperty pageProperty)
+        {
+            if (pageProperty != null)
+            {
+                if (pageProperty.Page < 1)
+                {
+                    throw new ArgumentException("The page cannot be less than 1! Try another page.");
+                }
+                else if ((pageProperty.Page - 1) * pageProperty.Limit >= _prep.Count())
+                {
+                    throw new ArgumentException("Page not found! Try another page.");
+                }
+            }
+
+            try
+            {
+                return _prep.GetPage(pageProperty).ToList();
             }
             catch (Exception e)
             {
@@ -103,11 +127,11 @@ namespace Bamz.Petshop.Core.ApplicationService.Services
             }
         }
 
-        public Pet Update(int index, string name, DateTime birthDate, DateTime soldDate, Colour colour, PetType type, Person previousOwner, double price)
+        public Pet Update(int id, Pet pet)
         {
             try
             {
-                return _prep.Update(index, name, birthDate, soldDate, colour, type, previousOwner, price);
+                return _prep.Update(id, pet);
             }
             catch (Exception e)
             {

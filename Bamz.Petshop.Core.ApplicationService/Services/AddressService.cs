@@ -9,18 +9,18 @@ namespace Bamz.Petshop.Core.ApplicationService.Services
 {
     public class AddressService : IAddressService
     {
-        private readonly IAddressRepository _arep;
+        private readonly IRepository<Address> _arep;
 
-        public AddressService(IAddressRepository addressRepository)
+        public AddressService(IRepository<Address> addressRepository)
         {
             _arep = addressRepository;
         }
 
-        public Address Add(string street, int number, string letter, int floor, string side, int zipCode, string city)
+        public Address Add(Address address)
         {
             try
             {
-                return _arep.Add(street, number, letter, floor, side, zipCode, city);
+                return _arep.Add(address);
             }
             catch (Exception e)
             {
@@ -64,11 +64,11 @@ namespace Bamz.Petshop.Core.ApplicationService.Services
             }
         }
 
-        public Address Update(int index, string street, int number, string letter, int floor, string side, int zipCode, string city)
+        public Address Update(int index, Address address)
         {
             try
             {
-                return _arep.Update(index, street, number, letter, floor, side, zipCode, city);
+                return _arep.Update(index, address);
             }
             catch (Exception e)
             {

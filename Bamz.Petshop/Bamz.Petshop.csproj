@@ -13,7 +13,6 @@
     <ProjectReference Include="..\Bamz.Petshop.Core.ApplicationService\Bamz.Petshop.Core.ApplicationService.csproj" />
     <ProjectReference Include="..\Bamz.Petshop.Core.DomainService\Bamz.Petshop.Core.DomainService.csproj" />
     <ProjectReference Include="..\Bamz.Petshop.Infrastructure.Data\Bamz.Petshop.Infrastructure.Data.csproj" />
-    <ProjectReference Include="..\Bamz.Petshop.UserInterface\Bamz.Petshop.UserInterface.csproj" />
   </ItemGroup>
 
 </Project>

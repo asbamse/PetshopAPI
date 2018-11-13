@@ -11,7 +11,7 @@ namespace Bamz.Petshop.Core.ApplicationService
         /// Adds address to repository.
         /// </summary>
         /// <returns></returns>
-        Address Add(string street, int number, string letter, int floor, string side, int zipCode, string city);
+        Address Add(Address address);
 
         /// <summary>
         /// Gets all addresss.
@@ -29,9 +29,8 @@ namespace Bamz.Petshop.Core.ApplicationService
         /// <summary>
         /// Updates Address already in repository.
         /// </summary>
-        /// <param name="index">Index wanted editing.</param>
         /// <returns></returns>
-        Address Update(int index, string street, int number, string letter, int floor, string side, int zipCode, string city);
+        Address Update(int index, Address address);
 
         /// <summary>
         /// Deletes address in repository.

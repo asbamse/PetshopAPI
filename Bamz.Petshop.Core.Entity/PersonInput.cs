@@ -4,9 +4,8 @@ using System.Text;
 
 namespace Bamz.Petshop.Core.Entity
 {
-    public class Colour
+    public class PersonInput : Person
     {
-        public int Id { get; set; }
-        public string Description { get; set; }
+        public string Password { get; set; }
     }
 }

@@ -29,7 +29,17 @@ namespace Bamz.Petshop.Infrastructure.Data
             Address address;
             try
             {
-                address = new Address(_nextId, street, number, letter, floor, side, zipCode, city);
+                address = new Address {
+                    Id = _nextId,
+                    Street = street,
+                    Number = number,
+                    Letter = letter,
+                    Floor = floor,
+                    Side = side,
+                    ZipCode = zipCode,
+                    City = city
+                };
+                    
                 _addresss.Add(address);
                 _nextId++;
             }
@@ -63,7 +73,18 @@ namespace Bamz.Petshop.Infrastructure.Data
             {
                 if (_addresss[i].Id == index)
                 {
-                    address = new Address(_nextId, street, number, letter, floor, side, zipCode, city);
+                    address = new Address
+                    {
+                        Id = _nextId,
+                        Street = street,
+                        Number = number,
+                        Letter = letter,
+                        Floor = floor,
+                        Side = side,
+                        ZipCode = zipCode,
+                        City = city
+                    };
+
                     _addresss[i] = address;
                     return address;
                 }

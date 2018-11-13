@@ -9,27 +9,20 @@ namespace Bamz.Petshop.Core.ApplicationService.Services
 {
     public class OrderService : IOrderService
     {
-        private readonly IOrderRepository _orep;
-        private readonly IPetRepository _prep;
+        private readonly IRepository<Order> _orep;
         private readonly IPersonRepository _psrep;
 
-        public OrderService(IOrderRepository orderRepository, IPetRepository petRepository, IPersonRepository personRepository)
+        public OrderService(IRepository<Order> orderRepository, IPersonRepository personRepository)
         {
             _orep = orderRepository;
-            _prep = petRepository;
             _psrep = personRepository;
         }
 
-        public Order Add(Person customer, List<Pet> pets, DateTime orderDate, double price)
+        public Order Add(Order order)
         {
             try
             {
-                List<Pet> updatedPets = new List<Pet>();
-                for (int i = 0; i < pets.Count; i++)
-                {
-                    updatedPets.Add(_prep.GetById(pets[i].Id));
-                }
-                return _orep.Add(_psrep.GetById(customer.Id), updatedPets, orderDate, price);
+                return _orep.Add(order);
             }
             catch (Exception e)
             {
@@ -73,16 +66,11 @@ namespace Bamz.Petshop.Core.ApplicationService.Services
             }
         }
 
-        public Order Update(int index, Person customer, List<Pet> pets, DateTime orderDate, double price)
+        public Order Update(int index, Order order)
         {
             try
             {
-                List<Pet> updatedPets = new List<Pet>();
-                for (int i = 0; i < pets.Count; i++)
-                {
-                    updatedPets.Add(_prep.GetById(pets[i].Id));
-                }
-                return _orep.Update(index, _psrep.GetById(customer.Id), updatedPets, orderDate, price);
+                return _orep.Update(index, order);
             }
             catch (Exception e)
             {

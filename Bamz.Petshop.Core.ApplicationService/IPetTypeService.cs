@@ -10,9 +10,8 @@ namespace Bamz.Petshop.Core.ApplicationService
         /// <summary>
         /// Adds petType to repository.
         /// </summary>
-        /// <param name="type">Adding petType.</param>
         /// <returns></returns>
-        PetType Add(string type);
+        PetType Add(PetType petType);
 
         /// <summary>
         /// Gets all petTypes.
@@ -30,10 +29,8 @@ namespace Bamz.Petshop.Core.ApplicationService
         /// <summary>
         /// Updates PetType already in repository.
         /// </summary>
-        /// <param name="index">Index wanted editing.</param>
-        /// <param name="type">New PetType information.</param>
         /// <returns></returns>
-        PetType Update(int index, string type);
+        PetType Update(int index, PetType petType);
 
         /// <summary>
         /// Deletes petType in repository.

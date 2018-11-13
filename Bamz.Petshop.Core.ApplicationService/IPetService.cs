@@ -10,15 +10,8 @@ namespace Bamz.Petshop.Core.ApplicationService
         /// <summary>
         /// Adds pet to repository.
         /// </summary>
-        /// <param name="name">Name of pet.</param>
-        /// <param name="birthDate">The pets date of birth.</param>
-        /// <param name="soldDate">The date the pet was sold.</param>
-        /// <param name="colour">Colour of pet.</param>
-        /// <param name="type">Type of pet.</param>
-        /// <param name="previousOwner">Previous owner of the pet.</param>
-        /// <param name="price">Price of pet.</param>
         /// <returns></returns>
-        Pet Add(string name, DateTime birthDate, DateTime soldDate, Colour colour, PetType type, Person previousOwner, double price);
+        Pet Add(Pet pet);
 
         /// <summary>
         /// Gets pet with given id if present.
@@ -32,6 +25,8 @@ namespace Bamz.Petshop.Core.ApplicationService
         /// </summary>
         /// <returns>All Pets in repository</returns>
         List<Pet> GetAll();
+
+        List<Pet> GetPage(PageProperty pageProperty);
 
         /// <summary>
         /// Gets all pets in order cheapest to most expensive.
@@ -55,16 +50,8 @@ namespace Bamz.Petshop.Core.ApplicationService
         /// <summary>
         /// Updates Pet already in repository.
         /// </summary>
-        /// <param name="index">Index of pet wanted editing.</param>
-        /// <param name="name">Name of pet.</param>
-        /// <param name="birthDate">The pets date of birth.</param>
-        /// <param name="soldDate">The date the pet was sold.</param>
-        /// <param name="colour">Colour of pet.</param>
-        /// <param name="type">Type of pet.</param>
-        /// <param name="previousOwner">Previous owner of the pet.</param>
-        /// <param name="price">Price of pet.</param>
         /// <returns></returns>
-        Pet Update(int index, string name, DateTime birthDate, DateTime soldDate, Colour colour, PetType type, Person previousOwner, double price);
+        Pet Update(int id, Pet pet);
 
         /// <summary>
         /// Deletes pet in repository.

@@ -11,7 +11,7 @@ namespace Bamz.Petshop.Core.ApplicationService
         /// Adds order to repository.
         /// </summary>
         /// <returns></returns>
-        Order Add(Person customer, List<Pet> pets, DateTime orderDate, double price);
+        Order Add(Order order);
 
         /// <summary>
         /// Gets all orders.
@@ -30,7 +30,7 @@ namespace Bamz.Petshop.Core.ApplicationService
         /// Updates Order already in repository.
         /// </summary>
         /// <returns></returns>
-        Order Update(int index, Person customer, List<Pet> pets, DateTime orderDate, double price);
+        Order Update(int index, Order order);
 
         /// <summary>
         /// Deletes order in repository.

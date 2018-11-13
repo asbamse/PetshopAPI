@@ -10,13 +10,8 @@ namespace Bamz.Petshop.Core.ApplicationService
         /// <summary>
         /// Adds person to repository.
         /// </summary>
-        /// <param name="firstName">Firstname.</param>
-        /// <param name="lastName">Lastname.</param>
-        /// <param name="address">Address.</param>
-        /// <param name="phone">Phone.</param>
-        /// <param name="email">Email.</param>
         /// <returns></returns>
-        Person Add(string firstName, string lastName, Address address, int phone, string email);
+        Person Add(PersonInput person);
 
         /// <summary>
         /// Gets all persons.
@@ -34,14 +29,8 @@ namespace Bamz.Petshop.Core.ApplicationService
         /// <summary>
         /// Updates Person already in repository.
         /// </summary>
-        /// <param name="index">Index of person wanted editing.</param>
-        /// <param name="firstName">Firstname.</param>
-        /// <param name="lastName">Lastname.</param>
-        /// <param name="address">Address.</param>
-        /// <param name="phone">Phone.</param>
-        /// <param name="email">Email.</param>
         /// <returns></returns>
-        Person Update(int index, string firstName, string lastName, Address address, int phone, string email);
+        Person Update(int index, PersonInput person);
 
         /// <summary>
         /// Deletes person in repository.

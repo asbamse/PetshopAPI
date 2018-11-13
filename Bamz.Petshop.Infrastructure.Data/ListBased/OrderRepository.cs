@@ -30,17 +30,22 @@ namespace Bamz.Petshop.Infrastructure.Data
             }
         }
 
-        public Order Add(Person customer, List<Pet> pets, DateTime orderDate, double price)
+        public Order Add(Person customer, List<OrderPetRelation> orderlines, DateTime orderDate, double price)
         {
             Order order;
             try
             {
                 List<Pet> updatedPets = new List<Pet>();
-                for (int i = 0; i < pets.Count; i++)
+                
+                order = new Order
                 {
-                    updatedPets.Add(_prep.GetById(pets[i].Id));
-                }
-                order = new Order(_nextId, _psrep.GetById(customer.Id), updatedPets, orderDate, price);
+                    Id = _nextId,
+                    Customer = _psrep.GetById(customer.Id),
+                    Pets = orderlines,
+                    OrderDate = orderDate,
+                    Price = price
+                };
+
                 _orders.Add(order);
                 _nextId++;
             }
@@ -67,19 +72,22 @@ namespace Bamz.Petshop.Infrastructure.Data
             throw new RepositoryException("Order not found!");
         }
 
-        public Order Update(int index, Person customer, List<Pet> pets, DateTime orderDate, double price)
+        public Order Update(int index, Person customer, List<OrderPetRelation> orderlines, DateTime orderDate, double price)
         {
             Order order;
             for (int i = 0; i < _orders.Count; i++)
             {
                 if (_orders[i].Id == index)
                 {
-                    List<Pet> updatedPets = new List<Pet>();
-                    for (int j = 0; j < pets.Count; j++)
+                    order = new Order
                     {
-                        updatedPets.Add(_prep.GetById(pets[j].Id));
-                    }
-                    order = new Order(index, _psrep.GetById(customer.Id), updatedPets, orderDate, price);
+                        Id = _nextId,
+                        Customer = _psrep.GetById(customer.Id),
+                        Pets = orderlines,
+                        OrderDate = orderDate,
+                        Price = price
+                    };
+                    
                     _orders[i] = order;
                     return order;
                 }
