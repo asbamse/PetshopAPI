@@ -23,7 +23,7 @@ namespace Bamz.Petshop.RestApi
         {
             Configuration = configuration;
             Environment = env;
-            JwtSecurityKey.SetSecret("a very secret string that needs to be at least 16 characters long");
+            JwtSecurityKey.SetSecret("spaghetti for maghetti, one time falafel bikini");
         }
 
         public IConfiguration Configuration { get; }
@@ -48,13 +48,13 @@ namespace Bamz.Petshop.RestApi
             if (Environment.IsDevelopment())
             {
                 // In-memory database:
-                services.AddDbContext<PetshopContext>(opt => opt.UseSqlite("Data Source = Petshop.db", b => b.MigrationsAssembly("Bamz.Petshop.RestApi")).EnableSensitiveDataLogging());
+                services.AddDbContext<PetshopContext>(opt => opt.UseSqlite("Data Source = Petshop.db").EnableSensitiveDataLogging());
             }
             else
             {
                 // SQL Server on Azure:
                 services.AddDbContext<PetshopContext>(opt =>
-                         opt.UseSqlServer(Configuration.GetConnectionString("defaultConnection"), b => b.MigrationsAssembly("Bamz.Petshop.RestApi")));
+                         opt.UseSqlServer(Configuration.GetConnectionString("defaultConnection")));
             }
 
             // Add JWT based authentication
