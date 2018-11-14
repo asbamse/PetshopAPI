@@ -78,10 +78,12 @@ namespace Bamz.Petshop.RestApi
             // Add CORS
             services.AddCors();
 
+            ServiceProvider sp = services.BuildServiceProvider();
+            var dbContext = sp.GetService<PetshopContext>();
+            dbContext.Database.Migrate();
+
             if (Environment.IsDevelopment())
             {
-                ServiceProvider sp = services.BuildServiceProvider();
-                var dbContext = sp.GetService<PetshopContext>();
                 DBInit.Initialize(dbContext);
             }
         }
