@@ -78,15 +78,11 @@ namespace Bamz.Petshop.RestApi
             // Add CORS
             services.AddCors();
 
-            ServiceProvider sp = services.BuildServiceProvider();
-            var dbContext = sp.GetService<PetshopContext>();
             if (Environment.IsDevelopment())
             {
+                ServiceProvider sp = services.BuildServiceProvider();
+                var dbContext = sp.GetService<PetshopContext>();
                 DBInit.Initialize(dbContext);
-            }
-            else
-            {
-                dbContext.Database.EnsureCreated();
             }
         }
 
@@ -106,7 +102,7 @@ namespace Bamz.Petshop.RestApi
                 {
                     app.UseHsts();
 
-                    app.UseCors(builder => builder.WithOrigins("https://petshop.azurewebsites.net").AllowAnyMethod().AllowAnyHeader());
+                    app.UseCors(builder => builder.WithOrigins("https://bamzpetshop.azurewebsites.net").AllowAnyMethod().AllowAnyHeader());
                 }
             }
 
