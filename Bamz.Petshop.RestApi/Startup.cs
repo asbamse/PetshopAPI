@@ -48,13 +48,13 @@ namespace Bamz.Petshop.RestApi
             if (Environment.IsDevelopment())
             {
                 // In-memory database:
-                services.AddDbContext<PetshopContext>(opt => opt.UseSqlite("Data Source = Petshop.db").EnableSensitiveDataLogging());
+                services.AddDbContext<PetshopContext>(opt => opt.UseSqlite("Data Source = Petshop.db", b => b.MigrationsAssembly("Bamz.Petshop.RestApi")).EnableSensitiveDataLogging());
             }
             else
             {
                 // SQL Server on Azure:
                 services.AddDbContext<PetshopContext>(opt =>
-                         opt.UseSqlServer(Configuration.GetConnectionString("defaultConnection")));
+                         opt.UseSqlServer(Configuration.GetConnectionString("defaultConnection"), b => b.MigrationsAssembly("Bamz.Petshop.RestApi")));
             }
 
             // Add JWT based authentication

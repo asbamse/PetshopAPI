@@ -17,15 +17,12 @@ namespace Bamz.Petshop.RestApi
     {
         public static void Main(string[] args)
         {
-            // Build host
-            var host = BuildWebHost(args).Build();
-
-            // Run host
-            host.Run();
+            BuildWebHost(args).Run();
         }
 
-        public static IWebHostBuilder BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+        public static IWebHost BuildWebHost(string[] args) =>
+           WebHost.CreateDefaultBuilder(args)
+               .UseStartup<Startup>()
+               .Build();
     }
 }
